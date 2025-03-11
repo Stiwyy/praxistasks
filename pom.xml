@@ -11,9 +11,9 @@
 	</parent>
 
 	<groupId>ch.bbw</groupId>
-	<artifactId>volleyballBackend</artifactId>
+	<artifactId>Tasks</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>volleyballBackend</name>
+	<name>Tasks</name>
 	<description>Demo project for Spring Boot with JPA and MySQL</description>
 
 	<properties>
