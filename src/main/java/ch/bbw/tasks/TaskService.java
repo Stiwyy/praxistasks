@@ -1,6 +1,7 @@
 package ch.bbw.tasks;
 
 import ch.bbw.tasks.model.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Optional;
 
 @Service
 public class TaskService {
+
+    @Autowired
     private TasksRepository tasksRepository;
 
     public List<Task> getTasks() {
