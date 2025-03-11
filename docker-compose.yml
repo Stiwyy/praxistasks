@@ -1,32 +1,51 @@
 version: '3.8'
 
 services:
-  tasks-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-
-  db:
+  mariadb:
     image: mariadb:latest
+    container_name: mariadb_server
+    restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: tasks_db
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: tasks
       MYSQL_USER: root
       MYSQL_PASSWORD: 1234
     ports:
       - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - app-network
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
     environment:
-      PMA_HOST: db
+      PMA_HOST: mariadb
       PMA_USER: root
       PMA_PASSWORD: 1234
     ports:
       - "80:80"
     depends_on:
-      - db
+      - mariadb
+    networks:
+      - app-network
+
+  java-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: java_application
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+volumes:
+  mariadb_data:
+
+networks:
+  app-network:
+    driver: bridge
