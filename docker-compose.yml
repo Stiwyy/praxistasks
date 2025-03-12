@@ -32,17 +32,6 @@ services:
     networks:
       - app-network
 
-  java-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: java_application
-    restart: always
-    ports:
-      - "8080:8080"
-    networks:
-      - app-network
-
 volumes:
   mariadb_data:
 
