@@ -1,6 +1,7 @@
 package ch.bbw.tasks;
 
 import ch.bbw.tasks.model.Task;
+import ch.bbw.tasks.model.TaskDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,10 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task saveTask(@RequestBody Task task) {
-        return taskService.saveTask(task);
+    public Task saveTask(@RequestBody TaskDTO taskDTO) {
+        Task task = new Task();
+        task.setDescription(taskDTO.getDescription());
+        task.setCompleted(taskDTO.isCompleted());
+        return taskService.saveTask(task, taskDTO.getUserId());
     }
-
 }
